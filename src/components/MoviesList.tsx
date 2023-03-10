@@ -10,7 +10,6 @@ import {Typography, Grid} from "@mui/material";
 export const MoviesList: React.FC = () => {
   const { status, error } = useAppSelector(selectPostsInfo);
   const movies = useAppSelector(selectPosts);
-
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -23,7 +22,7 @@ export const MoviesList: React.FC = () => {
       {status === "loading" && <Typography>Loading...</Typography>}
       {error && <Typography>Something go wrong, try it later....</Typography>}
       {status === "received" && (
-        <Grid container spacing={4}>
+        <Grid container spacing={7}>
           {movies.length > 0 ? movies.map((movie) => 
             <MovieCard key={movie.imdbID} movie={movie} />
           ):<Typography>I don't know this movie</Typography>}
