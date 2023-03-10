@@ -3,27 +3,38 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../index";
 
 type PostType = {
-  Title: string
-  Year: string
-  imdbID: string
-  Type: string
-  Poster: string
+  Title: string;
+  Year: string;
+  imdbID: string;
+  Type: string;
+  Poster: string;
 };
+type ResponseType = {
+  Search: PostType[];
+  totalResults: string;
+  Response: "True" | "False"
+  Error: string | undefined
+}
 
 export const loadPosts = createAsyncThunk<
-  PostType[],
-  undefined,
+  ResponseType,
+  undefined | string,
   { rejectValue: string }
->("todos/fetchTodos", async function (_, { rejectWithValue }) {
-  const response = await fetch("https://www.omdbapi.com/?apikey=462ed482&s=new");
+>("todos/fetchTodos", async function (parametr = "new", { rejectWithValue }) {
+  const response = await fetch(
+    `https://www.omdbapi.com/?apikey=462ed482&s=${parametr}`
+  );
 
   if (!response.ok) {
     return rejectWithValue("Server Error!");
   }
 
   const data = await response.json();
+  if (data.Response === "True") {
+   return data } else {
+    throw new Error(data.Error)
+   }
 
-  return data.Search;
 });
 
 type initialType = {
@@ -55,7 +66,7 @@ const postsSlice = createSlice({
       .addCase(loadPosts.fulfilled, (state, action) => {
         state.status = "received";
         state.error = null;
-        state.list = action.payload;
+        state.list = action.payload.Search;
       });
   },
 });
@@ -65,7 +76,6 @@ export const postsReduser = postsSlice.reducer;
 export const selectPostsInfo = (state: RootState) => ({
   status: state.posts.status,
   error: state.posts.error,
-  qty: state.posts.list.length,
 });
 
 export const selectPosts = (state: RootState) => state.posts.list;
