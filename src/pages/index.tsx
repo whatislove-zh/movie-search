@@ -4,6 +4,8 @@ import { Search } from '@/components/Search'
 import { MoviesList } from '@/components/MoviesList'
 
 export default function Home() {
+
+
   return (
     <>
       <Head>
@@ -13,7 +15,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-      <Container maxWidth="md">
+      <Container maxWidth="lg">
       <Box
         sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
       >
