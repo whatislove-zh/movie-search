@@ -21,7 +21,7 @@ export const MovieCard: React.FC<PropsType> = (props) => {
   }
   return (
     <Grid item lg={3} md={4} sm={6} xs={12}>
-      <Card onClick={handleClick} sx={{cursor:"pointer"}}>
+      <Card onClick={handleClick} sx={{cursor:"pointer", boxShadow:"9"}}>
         <CardMedia
           component="img"
           loading="lazy"
