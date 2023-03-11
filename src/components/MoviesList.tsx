@@ -26,7 +26,7 @@ export const MoviesList: React.FC = () => {
       )}
       {error && (
         <Typography sx={{ minHeight: "60vh" }}>
-          Something go wrong, try it later....
+          {error}
         </Typography>
       )}
       {status === "received" && (

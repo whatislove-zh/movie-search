@@ -7,6 +7,7 @@ import Button from "@mui/material/Button";
 import CardContent from "@mui/material/CardContent";
 import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 import { useRouter } from "next/router";
 
@@ -32,10 +33,13 @@ export const DetailsCard: React.FC = () => {
 
   const router = useRouter();
 
+  const isWidthLessSm = useMediaQuery("(min-width:600px)");
+  const display = isWidthLessSm ? "flex" : "block";
+
   return (
     <>
       <Card sx={{ my: "50px", boxShadow: "9" }}>
-        <Box sx={{ display: "flex", justifyContent: "space-evenly" }}>
+        <Box sx={{ display: display, justifyContent: "space-evenly" }}>
           <Box
             sx={{
               display: "flex",
@@ -94,6 +98,7 @@ export const DetailsCard: React.FC = () => {
         </CardContent>
       </Card>
       <Button
+        sx={{mb:"30px"}}
         variant="outlined"
         onClick={() => {
           router.push("/");

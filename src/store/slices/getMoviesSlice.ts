@@ -23,14 +23,10 @@ export const loadPosts = createAsyncThunk<
 >(
   "posts/getPosts",
   async function (parametr = { search: "new", page: 1 }, { rejectWithValue }) {
-    const {search, page} = parametr
+    const { search, page } = parametr;
     const response = await fetch(
       `https://www.omdbapi.com/?apikey=462ed482&s=${search}&page=${page}`
     );
-
-    if (!response.ok) {
-      return rejectWithValue("Server Error!");
-    }
 
     const data = await response.json();
     if (data.Response === "True") {
@@ -43,7 +39,7 @@ export const loadPosts = createAsyncThunk<
 
 type initialType = {
   status: "idle" | "rejected" | "loading" | "received";
-  error: null | string | {};
+  error: null | string | undefined;
   list: PostType[];
   qty: string;
 };
@@ -67,7 +63,7 @@ const postsSlice = createSlice({
       })
       .addCase(loadPosts.rejected, (state, action) => {
         state.status = "rejected";
-        state.error = action.payload || action.error;
+        state.error = action.payload || action.error.message;
       })
       .addCase(loadPosts.fulfilled, (state, action) => {
         state.status = "received";

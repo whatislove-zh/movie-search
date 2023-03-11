@@ -44,10 +44,6 @@ export const loadMovie = createAsyncThunk<
     `https://www.omdbapi.com/?apikey=462ed482&i=${parametr}`
   );
 
-  if (!response.ok) {
-    return rejectWithValue("Server Error!");
-  }
-
   const data: MovieT = await response.json();
   if (data.Response === "True") {
     return data;
@@ -58,7 +54,7 @@ export const loadMovie = createAsyncThunk<
 
 type initial = {
   status: "idle" | "rejected" | "loading" | "received";
-  error: null | string | {};
+  error: null | string | undefined;
   movieInfo: MovieT | null;
 };
 
@@ -86,7 +82,7 @@ const movieSlice = createSlice({
       })
       .addCase(loadMovie.rejected, (state, action) => {
         state.status = "rejected";
-        state.error = action.payload || action.error;
+        state.error = action.payload || action.error.message;
       })
       .addCase(loadMovie.fulfilled, (state, action) => {
         state.status = "received";

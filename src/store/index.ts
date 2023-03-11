@@ -9,7 +9,7 @@ const store = configureStore({
     posts: postsReduser,
     movieDetails: movieReduser,
     controls: controlsReducer,
-    favorite: favoriteReducer
+    favorite: favoriteReducer,
   },
   devTools: true,
 });

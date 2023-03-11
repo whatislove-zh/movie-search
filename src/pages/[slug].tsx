@@ -38,7 +38,7 @@ export default function Details() {
         <Container maxWidth="md">
           {status === "loading" && <Typography>Loading...</Typography>}
           {error && (
-            <Typography>Something go wrong, try it later....</Typography>
+            <Typography>{error}</Typography>
           )}
           {status === "received" && <DetailsCard />}
         </Container>
