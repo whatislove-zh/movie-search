@@ -1,6 +1,6 @@
 import { TextField } from "@mui/material";
 import React from "react";
-import { debounce } from "lodash"
+import { debounce } from "lodash";
 import { useAppDispatch } from "@/store/hook";
 import { loadPosts } from "@/store/slices/getMoviesSlice";
 
