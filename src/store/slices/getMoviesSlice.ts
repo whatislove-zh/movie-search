@@ -12,15 +12,15 @@ type PostType = {
 type ResponseType = {
   Search: PostType[];
   totalResults: string;
-  Response: "True" | "False"
-  Error: string | undefined
-}
+  Response: "True" | "False";
+  Error: string | undefined;
+};
 
 export const loadPosts = createAsyncThunk<
   ResponseType,
   undefined | string,
   { rejectValue: string }
->("todos/fetchTodos", async function (parametr = "new", { rejectWithValue }) {
+>("posts/getPosts", async function (parametr = "new", { rejectWithValue }) {
   const response = await fetch(
     `https://www.omdbapi.com/?apikey=462ed482&s=${parametr}`
   );
@@ -31,10 +31,10 @@ export const loadPosts = createAsyncThunk<
 
   const data = await response.json();
   if (data.Response === "True") {
-   return data } else {
-    throw new Error(data.Error)
-   }
-
+    return data;
+  } else {
+    throw new Error(data.Error);
+  }
 });
 
 type initialType = {
