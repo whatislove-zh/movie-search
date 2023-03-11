@@ -11,10 +11,12 @@ export const MoviesList: React.FC = () => {
   const { status, error } = useAppSelector(selectPostsInfo);
   const movies = useAppSelector(selectPosts);
   const dispatch = useAppDispatch();
+  const search = useAppSelector(state => state.controls.search)
+  const page = useAppSelector(state => state.controls.page)
 
   useEffect(() => {
     if (status === "idle") {
-      dispatch(loadPosts());
+      dispatch(loadPosts({search:search, page:page}));
     }
   }, [status, dispatch]);
 
@@ -24,10 +26,10 @@ export const MoviesList: React.FC = () => {
 
   return (
     <>
-      {status === "loading" && <Typography>Loading...</Typography>}
-      {error && <Typography>Something go wrong, try it later....</Typography>}
+      {status === "loading" && <Typography sx={{minHeight:"60vh"}}>Loading...</Typography>}
+      {error && <Typography sx={{minHeight:"60vh"}}>Something go wrong, try it later....</Typography>}
       {status === "received" && (
-        <Grid container spacing={7}>
+        <Grid container spacing={7} sx={{minHeight:"60vh"}}>
           {movies.length > 0 ? (
             movies.map((movie) => (
               <MovieCard key={movie.imdbID} movie={movie} />

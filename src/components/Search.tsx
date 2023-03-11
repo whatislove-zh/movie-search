@@ -3,13 +3,19 @@ import React from "react";
 import { debounce } from "lodash";
 import { useAppDispatch } from "@/store/hook";
 import { loadPosts } from "@/store/slices/getMoviesSlice";
+import { setPage, setSearch } from "@/store/slices/controlsSlice";
 
 export const Search: React.FC = () => {
   const dispatch = useAppDispatch();
 
   const searchChangeHelper = debounce(
     (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-      dispatch(loadPosts(e.target.value));
+
+      if (e.target.value !== "") {
+        dispatch(loadPosts({ search: e.target.value }));
+        dispatch(setSearch(e.target.value));
+        dispatch(setPage(1))
+      }
     },
     1000
   );

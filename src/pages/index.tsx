@@ -2,6 +2,7 @@ import Head from 'next/head'
 import { Box, Container } from '@mui/material'
 import { Search } from '@/components/Search'
 import { MoviesList } from '@/components/MoviesList'
+import { AppPagination } from '@/components/AppPagination'
 
 export default function Home() {
 
@@ -21,6 +22,7 @@ export default function Home() {
       >
         <Search />
         <MoviesList />
+        <AppPagination />
       </Box>
     </Container>
       </main>
