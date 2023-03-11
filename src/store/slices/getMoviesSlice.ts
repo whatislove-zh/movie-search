@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import { RootState } from "../index";
 
-type PostType = {
+export type PostType = {
   Title: string;
   Year: string;
   imdbID: string;

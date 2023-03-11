@@ -2,13 +2,10 @@ import Head from "next/head";
 import { Container, Typography } from "@mui/material";
 import { DetailsCard } from "@/components/DetailsCard";
 import { useAppSelector, useAppDispatch } from "@/store/hook";
-import { selectTitle } from "@/store/slices/getDetailSlice";
+import { clearMovie, selectTitle } from "@/store/slices/getDetailSlice";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import {
-  loadMovie,
-  selectMovieStatus,
-} from "@/store/slices/getDetailSlice";
+import { loadMovie, selectMovieStatus } from "@/store/slices/getDetailSlice";
 
 export default function Details() {
   const Title = useAppSelector(selectTitle);
@@ -22,6 +19,12 @@ export default function Details() {
       dispatch(loadMovie(router.query.slug as string));
     }
   }, [status, router, dispatch]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(clearMovie());
+    };
+  }, [dispatch]);
 
   return (
     <>

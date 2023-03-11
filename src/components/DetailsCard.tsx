@@ -1,5 +1,5 @@
-import { useAppDispatch, useAppSelector } from "@/store/hook";
-import { clearMovie, selectMovie } from "@/store/slices/getDetailSlice";
+import { useAppSelector } from "@/store/hook";
+import { selectMovie } from "@/store/slices/getDetailSlice";
 import { MovieT } from "@/store/slices/getDetailSlice";
 
 import { Card, CardMedia, Box } from "@mui/material";
@@ -9,8 +9,6 @@ import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
 
 import { useRouter } from "next/router";
-
-import {useEffect} from "react"
 
 export const DetailsCard: React.FC = () => {
   const movie = useAppSelector(selectMovie) as MovieT;
@@ -32,8 +30,7 @@ export const DetailsCard: React.FC = () => {
     imdbRating,
   } = movie;
 
-  const router = useRouter()
-  const dispatch = useAppDispatch()
+  const router = useRouter();
 
   return (
     <>
@@ -96,7 +93,14 @@ export const DetailsCard: React.FC = () => {
           <Typography variant="body1">{Plot}</Typography>
         </CardContent>
       </Card>
-      <Button variant="outlined" onClick={() => {router.push("/")}}>Go Home</Button>
+      <Button
+        variant="outlined"
+        onClick={() => {
+          router.push("/");
+        }}
+      >
+        Go Home
+      </Button>
     </>
   );
 };
